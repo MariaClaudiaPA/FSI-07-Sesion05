@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilocs.css">
+    <title>Calculadora</title>
+</head>
+
+<body>
+    <form action="">
+        <input class="text" name="numero1" type="text" id="numero1">
+        <div id="respuesta"></div>
+        <div>
+            <button type="button" onclick="agregarNumero('1');">1</button>
+            <button type="button" onclick="agregarNumero('2');">2</button>
+            <button type="button" onclick="agregarNumero('3');">3</button>
+            <button type="button" onclick="sumar();">+</button>
+        </div>
+        <div>
+            <button type="button" onclick="agregarNumero('4');">4</button>
+            <button type="button" onclick="agregarNumero('5');">5</button>
+            <button type="button" onclick="agregarNumero('6');">6</button>
+            <button type="button" onclick="restar();">-</button>
+        </div>
+        <div>
+            <button type="button" onclick="agregarNumero('7');">7</button>
+            <button type="button" onclick="agregarNumero('8');">8</button>
+            <button type="button" onclick="agregarNumero('9');">9</button>
+            <button type="button" onclick="multiplicar();">*</button>
+        </div>
+        <div>
+            <button type="button" onclick="agregarNumero('0');">0</button>
+            <button type="button" onclick="agregarDecimal();">.</button>
+            <button type="button" onclick="borrar();">br</button>
+            <button type="button" onclick="dividir();">/</button>
+        </div>
+        <button type="button" onclick="calcular();">=</button>
+        <button type="button" onclick="raizCuadrada();">√</button>
+        <button type="button" onclick="potencia();">^</button>
+    </form>
+
+    <script>
+        let numeroActual = "";
+        let operacionPendiente = null;
+        let numeroAnterior = null;
+
+        function agregarNumero(numero) {
+            numeroActual += numero;
+            actualizarPantalla();
+        }
+
+        function agregarDecimal() {
+            if (numeroActual.indexOf('.') === -1) {
+                numeroActual += '.';
+                actualizarPantalla();
+            }
+        }
+
+        function borrar() {
+            numeroActual = "";
+            actualizarPantalla();
+        }
+
+        function actualizarPantalla() {
+            document.getElementById("numero1").value = numeroActual;
+        }
+
+        function calcular() {
+            if (numeroAnterior !== null && operacionPendiente !== null) {
+                let resultado;
+                switch (operacionPendiente) {
+                    case '+':
+                        resultado = numeroAnterior + parseFloat(numeroActual);
+                        break;
+                    case '-':
+                        resultado = numeroAnterior - parseFloat(numeroActual);
+                        break;
+                    case '*':
+                        resultado = numeroAnterior * parseFloat(numeroActual);
+                        break;
+                    case '/':
+                        resultado = numeroAnterior / parseFloat(numeroActual);
+                        break;
+                }
+                numeroActual = resultado.toString();
+                operacionPendiente = null;
+                numeroAnterior = null;
+                actualizarPantalla();
+
+                let resultadoDiv = document.getElementById("respuesta");
+                resultadoDiv.classList.add("cambio-color");
+
+                setTimeout(function () {
+                    resultadoDiv.classList.remove("cambio-color");
+                }, 1000); 
+            }
+        }
+
+        function sumar() {
+            if (numeroAnterior === null) {
+                numeroAnterior = parseFloat(numeroActual);
+                operacionPendiente = '+';
+                borrar();
+            } else {
+                calcular();
+                operacionPendiente = '+';
+            }
+        }
+
+        function restar() {
+            if (numeroAnterior === null) {
+                numeroAnterior = parseFloat(numeroActual);
+                operacionPendiente = '-';
+                borrar();
+            } else {
+                calcular();
+                operacionPendiente = '-';
+            }
+        }
+
+        function multiplicar() {
+            if (numeroAnterior === null) {
+                numeroAnterior = parseFloat(numeroActual);
+                operacionPendiente = '*';
+                borrar();
+            } else {
+                calcular();
+                operacionPendiente = '*';
+            }
+        }
+
+        function dividir() {
+            if (numeroAnterior === null) {
+                numeroAnterior = parseFloat(numeroActual);
+                operacionPendiente = '/';
+                borrar();
+            } else {
+                calcular();
+                operacionPendiente = '/';
+            }
+        }
+
+        function raizCuadrada() {
+            let numero1 = parseFloat(numeroActual);
+            let solucion = document.getElementById("respuesta");
+            respuesta = Math.sqrt(numero1);
+            solucion.innerHTML = respuesta;
+        }
+
+        function potencia() {
+            let numero1 = parseFloat(numeroActual);
+            let numero2 = parseFloat(prompt("Ingrese el exponente:"));
+            let solucion = document.getElementById("respuesta");
+            respuesta = Math.pow(numero1, numero2);
+            solucion.innerHTML = respuesta;
+        }
+    </script>
+</body>
+
+</html>

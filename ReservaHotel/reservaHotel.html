@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserva de Hotel</title>
+    <link rel="stylesheet" href="estiloHotel.css">
+    <style>
+        #reservation-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgb(12, 0, 0);
+            z-index: 999;
+            font-size: 12px;
+            font-weight:900;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif ;
+            }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>PLAYA DORADA RESORT</h1>
+        <form id="reservation-form">
+            <div class="form-row">
+                <div class="form-column">
+                    <label for="first-name">Nombre:</label>
+                    <input type="text" id="first-name" required>
+                </div>
+
+                <div class="form-column">
+                    <label for="last-name">Apellidos:</label>
+                    <input type="text" id="last-name" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-column">
+                    <label for="dni">DNI:</label>
+                    <input type="text" id="dni" required>
+                </div>
+
+                <div class="form-column">
+                    <label for="phone-number">Número de Celular:</label>
+                    <input type="tel" id="phone-number" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-column">
+                    <label for="payment-type">Tipo de Pago:</label>
+                    <select id="payment-type" required>
+                        <option value="tarjeta">Tarjeta</option>
+                        <option value="efectivo">Efectivo</option>
+                    </select>
+                </div>
+
+                <div class="form-column">
+                    <label for="check-in-date">Fecha de Check-In:</label>
+                    <input type="date" id="check-in-date" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-column">
+                    <label for="check-out-date">Fecha de Check-Out:</label>
+                    <input type="date" id="check-out-date" required>
+                </div>
+
+                <div class="form-column">
+                    <label for="num-rooms">Número de Habitaciones:</label>
+                    <input type="number" id="num-rooms" min="1" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-column">
+                    <label for="num-adults">Número de Adultos:</label>
+                    <input type="number" id="num-adults" min="1" required>
+                </div>
+
+                <div class="form-column">
+                    <label for="num-children">Número de Niños:</label>
+                    <input type="number" id="num-children" min="0" required>
+                </div>
+            </div>
+
+            <button type="submit">Reservar</button>
+        </form>
+    </div>
+
+    <div id="reservation-modal">
+        <button id="close-modal">Cerrar</button>
+        <div id="reservation-details">
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('reservation-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            mostrarVentanaEmergente();
+        });
+
+        // Función para mostrar la ventana emergente con los detalles de la reserva
+        function mostrarVentanaEmergente() {
+            const checkInDate = document.getElementById('check-in-date').value;
+            const checkOutDate = document.getElementById('check-out-date').value;
+            const numRooms = document.getElementById('num-rooms').value;
+            const numAdults = document.getElementById('num-adults').value;
+            const numChildren = document.getElementById('num-children').value;
+            const firstName = document.getElementById('first-name').value;
+            const lastName = document.getElementById('last-name').value;
+            const dni = document.getElementById('dni').value;
+            const phoneNumber = document.getElementById('phone-number').value;
+            const paymentType = document.getElementById('payment-type').value;
+
+            const reservationDetails = `
+                <h2>Detalles de la Reserva</h2>
+                <p>Nombre: ${firstName}</p>
+                <p>Apellidos: ${lastName}</p>
+                <p>DNI: ${dni}</p>
+                <p>Número de Celular: ${phoneNumber}</p>
+                <p>Tipo de Pago: ${paymentType}</p>
+                <p>Check-In: ${checkInDate}</p>
+                <p>Check-Out: ${checkOutDate}</p>
+                <p>Número de Habitaciones: ${numRooms}</p>
+                <p>Número de Adultos: ${numAdults}</p>
+                <p>Número de Niños: ${numChildren}</p>
+            `;
+
+            document.getElementById('reservation-details').innerHTML = reservationDetails;
+            document.getElementById('reservation-modal').style.display = 'block';
+
+            // Agrega un manejador de evento para cerrar la ventana emergente
+            document.getElementById('close-modal').addEventListener('click', function () {
+                document.getElementById('reservation-modal').style.display = 'none';
+            });
+        }
+    </script>
+</body>
+
+</html>

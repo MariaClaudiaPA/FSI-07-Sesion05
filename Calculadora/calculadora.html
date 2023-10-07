@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estiloc.css">
+    <title>Calculadora</title>
+</head>
+<body>
+    <form action="">
+        <input class="text" name="numero1" type="text" id="numero1">
+        <input class="text" name="numero2" type="text" id="numero2">
+        <button type="button" onclick="sumar();">Sumar</button>
+        <button type="button" onclick="restar();">Restar</button>
+        <button type="button" onclick="multiplicar();">Multiplicar</button>
+        <button type="button" onclick="dividir();">Dividir</button>
+        <button type="button" onclick="raizCuadrada();">Raíz Cuadrada</button>
+        <button type="button" onclick="potencia();">Potencia</button>
+        <div id="respuesta"></div>
+    </form>
+
+    <script>
+        function sumar() {
+            let numero1 = document.getElementById("numero1").value;
+            let numero2 = document.getElementById("numero2").value;
+            let solucion = document.getElementById("respuesta");
+            respuesta = parseFloat(numero1) + parseFloat(numero2);
+            solucion.innerHTML = respuesta;
+        }
+
+        function restar() {
+            let numero1 = document.getElementById("numero1").value;
+            let numero2 = document.getElementById("numero2").value;
+            let solucion = document.getElementById("respuesta");
+            respuesta = parseFloat(numero1) - parseFloat(numero2);
+            solucion.innerHTML = respuesta;
+        }
+
+        function multiplicar() {
+            let numero1 = document.getElementById("numero1").value;
+            let numero2 = document.getElementById("numero2").value;
+            let solucion = document.getElementById("respuesta");
+            respuesta = parseFloat(numero1) * parseFloat(numero2);
+            solucion.innerHTML = respuesta;
+        }
+
+        function dividir() {
+            let numero1 = document.getElementById("numero1").value;
+            let numero2 = document.getElementById("numero2").value;
+            let solucion = document.getElementById("respuesta");
+            respuesta = parseFloat(numero1) / parseFloat(numero2);
+            solucion.innerHTML = respuesta;
+        }
+
+        function raizCuadrada() {
+            let numero1 = document.getElementById("numero1").value;
+            let solucion = document.getElementById("respuesta");
+            respuesta = Math.sqrt(parseFloat(numero1));
+            solucion.innerHTML = respuesta;
+        }
+
+        function potencia() {
+            let numero1 = document.getElementById("numero1").value;
+            let numero2 = document.getElementById("numero2").value;
+            let solucion = document.getElementById("respuesta");
+            respuesta = Math.pow(parseFloat(numero1), parseFloat(numero2));
+            solucion.innerHTML = respuesta;
+        }
+    </script>
+</body>
+</html>
